@@ -1,5 +1,6 @@
 <template>
   <v-container class="Mycontainer">
+    <p>Lista de Cursos</p>
   <Cards/>
   </v-container>
 </template>
@@ -16,7 +17,9 @@
   }
 </script>
 <style scoped>
-  .Mycontainer{
-    height: calc(100vh - 64px);
+  p {
+    font-size: 40px;
+    text-align: center;
+    color: whitesmoke;
   }
 </style>

@@ -86,10 +86,48 @@ export default new Vuex.Store({
   ]
   },
   getters: {
+    totalCupos: state => {
+      return state.cursos.reduce((total, curso) => total + parseInt(curso.cupos), 0);
+    },
+    totalInscritos: state => {
+      return state.cursos.reduce((total, curso) => total + parseInt(curso.inscritos), 0);
+    },
+    alumnosRestantes: state => {
+      return state.cursos.reduce((total, curso) => total + parseInt(curso.cupos) - parseInt(curso.inscritos), 0);
+    },
+    cursosTerminados: state => {
+      return state.cursos.reduce((total, curso) => total + curso.completado, 0);
+    }, 
+    cursosActivos: state => {
+      return state.cursos.reduce((total, curso) => total + (parseInt(curso.completado) ? 0 : 1), 0)
+    },
+    totalCursos: (state, getters) => {
+      const cursosActivos = getters.cursosActivos;
+      const cursosTerminados = getters.cursosTerminados;
+      return parseInt(cursosActivos) + parseInt(cursosTerminados);
+    },
+    getCourseById: (state) => (id) => {    return state.cursos.find(curso => curso.id == id)  }
+    
   },
   mutations: {
-  },
+    ADD_CURSO(state,curso){
+      var randVal = 100+(Math.random()*(500-100));
+      var id = Math.round(randVal)
+        curso.id = id 
+        state.cursos.push(curso)
+      },
+      CURSO_DELETE(state,index,curso) {
+        state.cursos.splice(index, 1, curso);
+      }
+    }
+  ,
   actions: {
+    add_curso({commit},curso) {
+      commit('ADD_CURSO',curso)
+    },
+    curso_delete ({commit},curso) {
+      commit('CURSO_DELETE',curso)
+    }
   },
   modules: {
   }

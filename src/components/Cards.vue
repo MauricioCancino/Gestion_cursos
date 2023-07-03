@@ -1,14 +1,14 @@
 <template>
   <v-container class="container d-flex">
     <v-row justify="center">
-        <v-col  v-for="curso in cursos" :key=curso.id>
-      <v-card width="300px">
+        <v-col cols="12" md="4" sm="6" v-for="curso in cursos" :key=curso.id>
+      <v-card width="400px" class="mycard">
         
         <v-img
           height="200px"
           width="200px"
           :src='curso.img'
-          class="m"
+          class="mx-auto"
         >
         </v-img>
         
@@ -25,24 +25,38 @@
             dense
           >
             <v-timeline-item
-              small
-              :color="curso.color"
-            >
-              <div>
+            small
+            :color="curso.color">
                 <div class="font-weight-normal">
-                  <strong>Costo: {{curso.costo}}</strong>Duración: {{curso.duracion}}
+                  <strong>Costo: {{curso.costo}}</strong>
+                  <div>
+                    <span>Duración: {{curso.duracion}}</span>
                 </div>
-                <div class="font-weight-normal">
-                  <strong>Cupos: {{curso.cupos}}</strong>Curso completado: {{curso.completado}}
                 </div>
+            </v-timeline-item>
+            <v-timeline-item
+            small
+            :color="curso.color">
+               <div class="font-weight-normal">
+                  <strong>Cupos: {{curso.cupos}}</strong>
+                </div>
+                <div>Curso completado: {{curso.completado ? "Sí" : "No"}}</div>
+            </v-timeline-item>
+            <v-timeline-item
+            small
+            :color="curso.color">
                 <div class="font-weight-normal">
                   <strong>Fecha de registro:</strong> {{curso.fecha_registro}}
                 </div>
-                <div class="font-weight-normal">
-                  <strong>Descripción:</strong> {{curso.descripcion}}
-                </div>
-              </div>
             </v-timeline-item>
+             <v-timeline-item
+            small
+            :color="curso.color">
+                <div class="font-weight-normal">
+                  <strong>Descripción:</strong> {{curso.descripcion.slice(0,86)}}..
+                </div>
+            </v-timeline-item>
+            
           </v-timeline>
         </v-card-text>
       </v-card>
@@ -57,10 +71,7 @@
   export default {
     name: 'card-comp',
     data: () => ({
-        props: {
             
-        },
-      
     }),
 
     methods: {
@@ -75,8 +86,12 @@
 
 
 <style scoped>
-    /* .container {
-        margin-top: 75px;
-    } */
+    .mycard{
+        background-image: url(https://img.freepik.com/vector-gratis/patron-codigo-binario-sobre-fondo-azul-oscuro_53876-116183.jpg);
+         background-size:100%;
+    }
+    h5 {
+        color: whitesmoke;
+    }
     
 </style>

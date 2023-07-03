@@ -1,15 +1,12 @@
 <template>
   <div>
-    <v-app-bar absolute color="blue darken-4" dark>
-      <div class="d-flex justify-center flex-grow-1">
-        <v-btn
-          @click="$router.push(`/`)"
-          color="light blue"
-          elevation="2"
-          rounded
-        >
+    <v-app-bar color="purple darken-2" dark>
+      <div id="botones" class="d-flex justify-end flex-grow-1">
+        <v-btn @click="$router.push(`/`)" color="transparent" elevation="2">
           <v-icon left> mdi-home </v-icon>
-          Home
+        </v-btn>
+        <v-btn @click="$router.push(`/administracion`)" color="transparent" elevation="2">
+          <v-icon left> mdi-tools </v-icon>
         </v-btn>
       </div>
     </v-app-bar>
@@ -35,4 +32,7 @@ export default {
 </script>
 
 <style scoped>
+#botones{
+  gap: 5px;
+}
 </style>
