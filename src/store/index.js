@@ -96,28 +96,33 @@ export default new Vuex.Store({
       return state.cursos.reduce((total, curso) => total + parseInt(curso.cupos) - parseInt(curso.inscritos), 0);
     },
     cursosTerminados: state => {
-      return state.cursos.reduce((total, curso) => total + curso.completado, 0);
+      return state.cursos.filter(curso=>curso.completado).length;
     }, 
     cursosActivos: state => {
-      return state.cursos.reduce((total, curso) => total + (parseInt(curso.completado) ? 0 : 1), 0)
+      return state.cursos.filter(curso =>!curso.completado).length;
     },
-    totalCursos: (state, getters) => {
-      const cursosActivos = getters.cursosActivos;
-      const cursosTerminados = getters.cursosTerminados;
-      return parseInt(cursosActivos) + parseInt(cursosTerminados);
+    totalCursos: state=>{
+      return state.cursos.length;
     },
-    getCourseById: (state) => (id) => {    return state.cursos.find(curso => curso.id == id)  }
+    getCourseById: (state) => (id) => {    return state.cursos.find(curso => curso.id == id)  },
     
   },
   mutations: {
     ADD_CURSO(state,curso){
-      var randVal = 100+(Math.random()*(500-100));
-      var id = Math.round(randVal)
-        curso.id = id 
-        state.cursos.push(curso)
-      },
-      CURSO_DELETE(state,index,curso) {
-        state.cursos.splice(index, 1, curso);
+      if (curso.inscritos <= curso.cupos) {
+        var randVal = 100 + Math.random() * (500 - 100);
+        var id = Math.round(randVal);
+        curso.id = id;
+        state.cursos.push(curso);
+      } else {
+        alert("La cantidad de inscritos es mayor que los cupos disponibles");
+      }
+    },
+      CURSO_DELETE(state,curso) {
+        const index = state.cursos.findIndex(item => item.id===curso.id)
+        if (index!== -1){
+           state.cursos.splice(index, 1);
+        }
       }
     }
   ,

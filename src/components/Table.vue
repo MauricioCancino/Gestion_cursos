@@ -25,7 +25,7 @@
       </v-icon>
       <v-icon
         small
-        @click="cursoDelete( item )"
+        @click="confirmDelete( item )"
       >
         mdi-delete
       </v-icon>
@@ -39,6 +39,36 @@
       </v-btn>
     </template>
       </v-data-table>
+      <v-dialog
+      v-model="dialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="text-h5">
+          ¿Estás seguro de que deseas eliminar este curso?
+        </v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialog = false"
+          >
+            Cancelar
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="cursoDelete(cursoEliminado)"
+          >
+            Eliminar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </div>
   </div>
 </template>
@@ -60,21 +90,29 @@ export default {
         { text: 'Fecha', value: 'fecha_registro' },
         { text: 'Acciones', value: 'acciones' },
       ],
+      dialog: false,
+      cursoEliminado: null
     };
   },
   computed: {
     ...mapState(['cursos']),
   },
   methods: {
-    getColor(completado) {
-      return completado ? 'green' : 'red';
-    },
-  },
-  actions: {
     ...mapActions(['curso_delete']),
+    confirmDelete(item){
+      
+      this.dialog=true
+      this.cursoEliminado=item
+    },
     cursoDelete(item){
       this.curso_delete(item)
-    }
-  }
+      this.dialog=false
+    },
+    getColor(completado) {
+      return completado ? 'green' : 'red';
+      
+    },
+
+  },
 };
 </script>

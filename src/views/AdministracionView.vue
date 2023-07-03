@@ -1,4 +1,4 @@
-<template>
+|<template>
 <v-container justify="center">
     <p>Administración</p>
 <div>

@@ -93,6 +93,7 @@
                   required
                 ></v-text-field>
               </v-col>
+              
               <v-col>
                 <v-textarea label="Descripción del curso"
                 v-model="descripcion"
@@ -101,6 +102,7 @@
                     
                 </v-textarea>
               </v-col>
+              
               
             </v-row>
           </v-container>
@@ -148,6 +150,7 @@ import {mapActions} from 'vuex'
       fecha_registro:new Date().toLocaleDateString(),
       costo:"",
       descripcion: "",
+      completado:"",
       
     }),
     methods: {
@@ -184,6 +187,7 @@ import {mapActions} from 'vuex'
                 return
             }
             
+            
             let curso = {
                 nombre:this.nombre,
                 img: this.img,
@@ -192,13 +196,14 @@ import {mapActions} from 'vuex'
                 duracion: this.duracion,
                 fecha_registro: this.fecha_registro,
                 costo: this.costo,
-                completado: false,
+                completado: this.completado,
                 descripcion:this.descripcion
             }
             this.add_curso(curso)
             this.dialog=false
         }
-    }
+    },
+    
   }
 </script>
 

@@ -77,6 +77,18 @@
                   required
                 ></v-text-field>
               </v-col>
+              
+              <v-col
+                cols="12"
+              >
+                <v-text-field
+                  label="Estado del curso"
+                  v-model="completado"
+                  type='text'
+                  required
+                ></v-text-field>
+              </v-col>
+
               <v-col>
                 <v-textarea label="Descripción del curso"
                 v-model="descripcion"
@@ -89,27 +101,25 @@
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions 
+        class="d-flex">
           <v-spacer></v-spacer>
           <v-btn
             color="success"
             variant="text"
+            justify="center"
+            @click="actualizarData"
             
            
           >
             Editar
           </v-btn>
-          <v-btn
-            color="warning"
-            variant="text"
-            
-          >
-            Limpiar formulario
-          </v-btn>
+          
           <v-btn
             color="error"
             variant="text"
-           
+            justify="center"
+           @click="$router.push('/administracion')"
           >
             Cancelar
           </v-btn>
@@ -137,14 +147,27 @@ export default {
       fecha_registro:"",
       costo:"",
       descripcion: "",
+      completado:""
         }
     },
     computed: {
         ...mapGetters(['getCourseById'])
     },
     methods: {
-        cursoDelete(index) {
-    return this.curso.splice(index,1,this.curso)
+    actualizarData(){
+        let curso = this.getCourseById(this.id)
+        console.log(curso)
+        curso.nombre=this.nombre
+        curso.img=this.img
+        curso.cupos=this.cupos
+        curso.inscritos=this.completado ? 0 : this.inscritos
+        curso.duracion=this.duracion
+        curso.fecha_registro=this.fecha_registro
+        curso.costo=this.costo
+        curso.descripcion=this.descripcion
+        curso.completado=this.completado
+
+        return this.$router.push('/administracion')
     },
     },
     // watch: {},
