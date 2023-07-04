@@ -128,7 +128,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 export default {
     name: 'edit-view',
     props: {
@@ -154,6 +154,7 @@ export default {
         ...mapGetters(['getCourseById'])
     },
     methods: {
+      ...mapActions(['edit_course']),
     actualizarData(){
         let curso = this.getCourseById(this.id)
         console.log(curso)
@@ -166,7 +167,7 @@ export default {
         curso.costo=this.costo
         curso.descripcion=this.descripcion
         curso.completado=this.completado
-
+        this.edit_course(curso)
         return this.$router.push('/administracion')
     },
     },
@@ -186,6 +187,7 @@ export default {
         this.fecha_registro=curso.fecha_registro
         this.costo=curso.costo
         this.descripcion=curso.descripcion
+        this.completado=curso.completado
     },
     // -- End Lifecycle Methods
 }

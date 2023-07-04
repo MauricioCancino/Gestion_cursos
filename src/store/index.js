@@ -123,6 +123,12 @@ export default new Vuex.Store({
         if (index!== -1){
            state.cursos.splice(index, 1);
         }
+      },
+      EDIT_COURSE(state, curso){
+        const index = state.cursos.findIndex(item => item.id===curso.id)
+        if (index!== -1){
+          state.cursos.splice(index, 1, curso);
+       }
       }
     }
   ,
@@ -132,7 +138,10 @@ export default new Vuex.Store({
     },
     curso_delete ({commit},curso) {
       commit('CURSO_DELETE',curso)
-    }
+    },
+    edit_course({commit},curso) {
+      commit('EDIT_COURSE',curso)
+    },
   },
   modules: {
   }

@@ -12,7 +12,7 @@
             :color="getColor(item.completado)"
             dark
           >
-            {{ item.completado ? 'Sí' : 'No' }}
+            {{String(item.completado).toLowerCase() == 'true' ? 'Sí' : 'No' }}
           </v-chip>
         </template>
         <template v-slot:[`item.acciones`]="{ item }">
@@ -109,7 +109,7 @@ export default {
       this.dialog=false
     },
     getColor(completado) {
-      return completado ? 'green' : 'red';
+      return String(completado).toLowerCase()== 'true' ? 'green' : 'red';
       
     },
 
